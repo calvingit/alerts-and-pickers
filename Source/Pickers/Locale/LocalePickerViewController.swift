@@ -59,7 +59,7 @@ final class LocalePickerViewController: UIViewController {
     fileprivate lazy var searchController: UISearchController = { [unowned self] in
         $0.searchResultsUpdater = self
         $0.searchBar.delegate = self
-        $0.dimsBackgroundDuringPresentation = false
+        $0.obscuresBackgroundDuringPresentation = false
         /// true if search bar in tableView header
         $0.hidesNavigationBarDuringPresentation = true
         $0.searchBar.searchBarStyle = .minimal
@@ -84,7 +84,7 @@ final class LocalePickerViewController: UIViewController {
     fileprivate lazy var indicatorView: UIActivityIndicatorView = {
         $0.color = .lightGray
         return $0
-    }(UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge))
+    }(UIActivityIndicatorView(style: .whiteLarge))
     
     // MARK: Initialize
     
@@ -297,9 +297,9 @@ extension LocalePickerViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
         if searchController.isActive { return 0 }
         tableView.scrollToRow(at: IndexPath(row: 0, section: index), at: .top , animated: false)
-        return sortedInfoKeys.index(of: title)!
+        return sortedInfoKeys.firstIndex(of: title)!
     }
-    
+
     func sectionIndexTitles(for tableView: UITableView) -> [String]? {
         if searchController.isActive { return nil }
         return sortedInfoKeys
